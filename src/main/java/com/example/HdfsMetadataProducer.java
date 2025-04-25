@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutionException;
 public class HdfsMetadataProducer {
 
     private static final String HDFS_URI = "hdfs://localhost:9000";
-    private static final String DIRECTORY_PATH = "/user/data/";
+    private static final String DIRECTORY_PATH = "/abatra/csvs/";
     private static final String KAFKA_TOPIC = "hdfs-metadata-topic";
     private static final String BOOTSTRAP_SERVERS = "localhost:9092";
 
