@@ -41,7 +41,7 @@ public class HdfsMetadataProducer {
             if (!file.isFile()) continue;
 
             long modTime = file.getModificationTime();
-            if (modTime >= fifteenMinutesAgo) {
+            if (modTime <= fifteenMinutesAgo) {
                 Map<String, Object> metadata = new HashMap<>();
                 metadata.put("path", file.getPath().toString());
                 metadata.put("size", file.getLen());
@@ -54,7 +54,7 @@ public class HdfsMetadataProducer {
                 ProducerRecord<String, String> record = new ProducerRecord<>(KAFKA_TOPIC, file.getPath().getName(), jsonMetadata);
                 producer.send(record);
 
-                System.out.println("Sent: " + jsonMetadata);
+                System.out.println("Sent:======================> " + jsonMetadata);
             }
         }
 
