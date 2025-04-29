@@ -19,6 +19,8 @@ public class HdfsMetadataProducer {
 
     public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
         Configuration hadoopConf = new Configuration();
+        hadoopConf.addResource(new Path("/home/abatra/hadoop/hadoop-3.4.0/etc/hadoop/core-site.xml"));
+        hadoopConf.addResource(new Path("/home/abatra/hadoop/hadoop-3.4.0/etc/hadoop/hdfs-site.xml"));
         hadoopConf.set("fs.defaultFS", HDFS_URI);
         FileSystem fs = FileSystem.get(hadoopConf);
 
@@ -50,7 +52,7 @@ public class HdfsMetadataProducer {
                 String jsonMetadata = mapper.writeValueAsString(metadata);
 
                 ProducerRecord<String, String> record = new ProducerRecord<>(KAFKA_TOPIC, file.getPath().getName(), jsonMetadata);
-                producer.send(record).get();
+                producer.send(record);
 
                 System.out.println("Sent: " + jsonMetadata);
             }
